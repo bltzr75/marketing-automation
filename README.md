@@ -64,7 +64,7 @@ Platform APIs → Data Pipeline → PostgreSQL → Analysis Engine → Insights 
 
 ```bash
 # Clone repository
-git clone [repository-url]
+git clone https://github.com/bltzr75/marketing-automation.git
 cd marketing-automation
 
 # Configure environment
