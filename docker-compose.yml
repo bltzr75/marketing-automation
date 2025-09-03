@@ -1,0 +1,92 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_DB: campaigns
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_INSTALL_PLUGINS: postgres
+    volumes:
+      - ./dashboards:/etc/grafana/provisioning/dashboards
+      - ./dashboards/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - postgres
+
+  n8n:
+    image: n8nio/n8n
+    ports:
+      - "5678:5678"
+    environment:
+      N8N_BASIC_AUTH_ACTIVE: "true"
+      N8N_BASIC_AUTH_USER: admin
+      N8N_BASIC_AUTH_PASSWORD: admin
+      N8N_RUNNERS_ENABLED: "true"  
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: postgres
+      DB_POSTGRESDB_DATABASE: campaigns
+      DB_POSTGRESDB_USER: user
+      DB_POSTGRESDB_PASSWORD: pass
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./workflows:/workflows
+    depends_on:
+      - postgres
+
+  app:
+    build: .
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://user:pass@postgres/campaigns
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/app/src
+      - ./data:/app/data
+      - ./.env:/app/.env
+    depends_on:
+      - postgres
+    command: python -m src.api.endpoints
+
+  scheduler:
+    build: .
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://user:pass@postgres/campaigns
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL}
+    volumes:
+      - ./src:/app/src
+      - ./data:/app/data
+      - ./.env:/app/.env
+    depends_on:
+      - postgres
+      - app
+    command: python -m src.main
+
+volumes:
+  postgres_data:
+  grafana_data:
+  n8n_data:
