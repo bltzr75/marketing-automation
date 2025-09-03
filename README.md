@@ -151,6 +151,24 @@ python3 -m tests.test_api
 python3 -m tests.test_full_system
 ```
 
+## Cleaning
+```bash
+# Remove test reports
+rm -f data/reports/*.html
+rm -f data/reports/*.json
+rm -f data/reports/*.pdf
+
+# Remove API usage logs
+rm -f data/logs/api_usage.json
+
+# Clear test ads data
+rm -f data/ads/ads.json
+
+# Remove Python cache
+find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null
+```bash
+
+
 ## Configuration
 
 ### Environment Variables
