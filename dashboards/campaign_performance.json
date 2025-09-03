@@ -1,0 +1,171 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": "PostgreSQL",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+      "id": 1,
+      "targets": [
+        {
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "SELECT timestamp AS \"time\", platform, AVG(ctr) as value FROM campaign_metrics WHERE timestamp > NOW() - INTERVAL '24 hours' GROUP BY timestamp, platform ORDER BY timestamp",
+          "refId": "A"
+        }
+      ],
+      "title": "CTR Trend (All Platforms)",
+      "type": "graph"
+    },
+    {
+      "datasource": "PostgreSQL",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+      "id": 2,
+      "targets": [
+        {
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "SELECT timestamp AS \"time\", platform, AVG(roas) as value FROM campaign_metrics WHERE timestamp > NOW() - INTERVAL '24 hours' GROUP BY timestamp, platform ORDER BY timestamp",
+          "refId": "A"
+        }
+      ],
+      "title": "ROAS Performance",
+      "type": "graph"
+    },
+    {
+      "datasource": "PostgreSQL",
+      "fieldConfig": {
+        "defaults": {"unit": "currencyUSD"},
+        "overrides": []
+      },
+      "gridPos": {"h": 4, "w": 6, "x": 0, "y": 8},
+      "id": 3,
+      "targets": [
+        {
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(SUM(daily_spend), 0) as value FROM campaign_metrics WHERE DATE(timestamp) = CURRENT_DATE",
+          "refId": "A"
+        }
+      ],
+      "title": "Total Spend Today",
+      "type": "stat"
+    },
+    {
+      "datasource": "PostgreSQL",
+      "fieldConfig": {
+        "defaults": {"unit": "percent"},
+        "overrides": []
+      },
+      "gridPos": {"h": 4, "w": 6, "x": 6, "y": 8},
+      "id": 4,
+      "targets": [
+        {
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(AVG(budget_utilization), 0) as value FROM campaign_metrics WHERE timestamp > NOW() - INTERVAL '1 hour'",
+          "refId": "A"
+        }
+      ],
+      "title": "Average Budget Utilization",
+      "type": "stat"
+    },
+    {
+      "datasource": "PostgreSQL",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {"h": 4, "w": 6, "x": 12, "y": 8},
+      "id": 5,
+      "targets": [
+        {
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(SUM(conversions), 0) as value FROM campaign_metrics WHERE DATE(timestamp) = CURRENT_DATE",
+          "refId": "A"
+        }
+      ],
+      "title": "Total Conversions",
+      "type": "stat"
+    },
+    {
+      "datasource": "PostgreSQL",
+      "fieldConfig": {
+        "defaults": {"unit": "percent", "max": 100, "min": 0},
+        "overrides": []
+      },
+      "gridPos": {"h": 4, "w": 6, "x": 18, "y": 8},
+      "id": 6,
+      "targets": [
+        {
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(AVG(success_rate), 100) as value FROM system_health WHERE last_check > NOW() - INTERVAL '5 minutes'",
+          "refId": "A"
+        }
+      ],
+      "title": "System Health",
+      "type": "gauge"
+    },
+    {
+      "datasource": "PostgreSQL",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {"h": 8, "w": 24, "x": 0, "y": 12},
+      "id": 7,
+      "targets": [
+        {
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT campaign_id, platform, ctr, roas, daily_spend, budget_utilization FROM campaign_metrics WHERE timestamp = (SELECT MAX(timestamp) FROM campaign_metrics) ORDER BY roas DESC LIMIT 10",
+          "refId": "A"
+        }
+      ],
+      "title": "Campaign Details",
+      "type": "table"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 27,
+  "style": "dark",
+  "tags": ["marketing", "campaigns"],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Campaign Performance Dashboard",
+  "uid": "campaign-perf",
+  "version": 0
+}
