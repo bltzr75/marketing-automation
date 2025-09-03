@@ -1,0 +1,70 @@
+# Core dependencies
+pydantic==2.11.7
+pydantic_core==2.33.2
+psycopg2-binary==2.9.10
+python-dotenv==1.1.1
+requests==2.32.5
+requests-oauthlib==2.0.0
+requests-toolbelt==1.0.0
+pytest==8.4.1
+
+# AI/ML
+google-generativeai==0.8.5
+google-ai-generativelanguage==0.6.15
+google-api-core==2.25.1
+google-api-python-client==2.179.0
+google-auth==2.40.3
+google-auth-httplib2==0.2.0
+googleapis-common-protos==1.70.0
+
+langchain==0.3.27
+langchain-core==0.3.75
+langchain-text-splitters==0.3.11
+langsmith==0.4.21
+
+chromadb==1.0.20
+PyPika==0.48.9
+duckdb
+
+# Optional for future enhancements
+dspy==3.0.3
+pandas==2.3.2
+scikit-learn==1.7.1
+scipy==1.15.3
+numpy==2.2.6
+joblib==1.5.2
+threadpoolctl==3.6.0
+
+# Utilities & infrastructure (pulled in automatically, important)
+aiohttp==3.12.15
+aiosignal==1.4.0
+async-timeout==4.0.3
+attrs==25.3.0
+frozenlist==1.7.0
+multidict==6.6.4
+yarl==1.20.1
+
+sqlalchemy==2.0.43
+alembic==1.16.5
+greenlet==3.2.4
+Mako==1.3.10
+
+protobuf==5.29.5
+grpcio==1.74.0
+grpcio-status==1.71.2
+
+# Logging & monitoring
+coloredlogs==15.0.1
+colorlog==6.9.0
+humanfriendly==10.0
+
+# Hugging Face & tokenizers
+huggingface-hub==0.34.4
+tiktoken==0.11.0
+tokenizers==0.22.0
+
+Flask==3.1.2
+Jinja2==3.1.6
+
+
+# weasyprint==66.0 ## Optional
