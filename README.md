@@ -166,7 +166,7 @@ rm -f data/ads/ads.json
 
 # Remove Python cache
 find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null
-```bash
+```
 
 
 ## Configuration
