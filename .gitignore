@@ -1,0 +1,253 @@
+# ============================================
+# Environment Variables and Secrets
+# ============================================
+.env
+.env.*
+!.env.example
+*.env
+credentials/
+secrets/
+*.pem
+*.key
+*.crt
+*.cer
+
+# ============================================
+# Python
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ============================================
+# Virtual Environments
+# ============================================
+venv/
+env/
+ENV/
+.venv/
+.virtualenv/
+venv.bak/
+virtualenv/
+
+# ============================================
+# Testing and Coverage
+# ============================================
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+htmlcov/
+.tox/
+.nox/
+test_results/
+junit.xml
+nosetests.xml
+
+# ============================================
+# Data and Logs (preserve directory structure)
+# ============================================
+data/logs/*
+!data/logs/.gitkeep
+data/reports/*.html
+data/reports/*.json
+data/reports/*.pdf
+!data/reports/.gitkeep
+data/ads/*.json
+!data/ads/.gitkeep
+data/chromadb/
+data/logs/api_usage.json
+
+# ============================================
+# Database
+# ============================================
+*.db
+*.sqlite
+*.sqlite3
+*.postgresql
+postgres_data/
+pgdata/
+
+# ============================================
+# Docker
+# ============================================
+docker-compose.override.yml
+.dockerignore
+grafana_data/
+n8n_data/
+postgres_data/
+
+# ============================================
+# IDE and Editors
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*~
+*.sublime-workspace
+*.sublime-project
+.project
+.pydevproject
+.settings/
+.classpath
+
+# ============================================
+# Operating System Files
+# ============================================
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+Icon?
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+.directory
+.Trash-*
+.nfs*
+
+# ============================================
+# Temporary Files
+# ============================================
+*.tmp
+*.temp
+*.log
+*.bak
+*.swp
+*.orig
+tmp/
+temp/
+logs/
+
+# ============================================
+# Jupyter Notebooks
+# ============================================
+.ipynb_checkpoints/
+*.ipynb
+
+# ============================================
+# Machine Learning / AI
+# ============================================
+.dspy_cache/
+dspy_cache/
+.chroma/
+chroma_db/
+chromadb/
+*.onnx
+model_cache/
+
+# ============================================
+# Documentation
+# ============================================
+docs/_build/
+docs/_static/
+docs/_templates/
+site/
+
+# ============================================
+# Project Specific
+# ============================================
+consolidated/
+
+
+# n8n workflow backups
+*.workflow.json.backup
+workflows/*.backup
+
+# Keep dashboard templates but not generated ones
+dashboards/*.json
+!dashboards/campaign_performance.json
+!dashboards/dashboard.yaml
+!dashboards/datasource.yaml
+
+# Summary history tracking
+Summary_History.txt
+
+# Debug outputs
+debug_*.txt
+debug_*.json
+
+# ============================================
+# Package Management
+# ============================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ============================================
+# Files to Always Keep
+# ============================================
+!.gitkeep
+!requirements.txt
+!requirements-optional.txt
+!Dockerfile
+!docker-compose.yml
+!README.md
+!LICENSE
+
+# PDF files
+*.pdf
+
+
+# Generated data files
+data/ads/ads.json
+data/ads/*.json
+!data/ads/.gitkeep
+
+# Generated reports
+data/reports/*.html
+data/reports/*.json
+data/reports/*.pdf
+!data/reports/.gitkeep
+
+# API usage logs
+data/logs/api_usage.json
+data/logs/*.json
+!data/logs/.gitkeep
+
+# Summary tracking file
+Summary_History*
+Summary_History.txt
+
+# Consolidated file from document
+consolidated/
+
+
+data/test_chromadb/ads.json
